@@ -1,0 +1,25 @@
+# --- REACT / NODE (Frontend) ---
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# --- C# / .NET (Backend) ---
+[Bb]in/
+[Oo]bj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.vs/
+*.nupkg
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# --- GENERAL / SISTEMA ---
+.DS_Store
+Thumbs.db
+.env
+.env.local
+*.log

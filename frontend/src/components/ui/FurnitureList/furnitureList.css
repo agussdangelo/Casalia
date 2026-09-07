@@ -1,0 +1,21 @@
+.furniture-list-container {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  background-color: #f9f9f9;
+  border-left: 1px solid #ddd;
+}
+
+.furniture-list-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.furniture-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 12px; 
+  overflow-y: auto;
+}
