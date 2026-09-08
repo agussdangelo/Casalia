@@ -1,3 +1,6 @@
+using Casalia.Infrastructure;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // SignalR: el motor de tiempo real (chat, comentarios anclados, presencia, etc.)
@@ -15,6 +18,12 @@ builder.Services.AddCors(options =>
     });
 });
 
+// Base de datos: PostgreSQL vía Npgsql
+builder.Services.AddDbContext<CasaliaDbContext>(options =>
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("DefaultConnection")
+    ));
+
 var app = builder.Build();
 
 app.UseCors("DevFrontend");
@@ -24,5 +33,12 @@ app.MapGet("/", () => "MiniRoomApi corriendo. Hub de chat en /hubs/room");
 
 // Acá se "engancha" el Hub de SignalR a una ruta
 app.MapHub<RoomHub>("/hubs/room");
+
+// Test de conexión -> https://localhost:7123/api/db-check si sale conectado:true salió bien
+app.MapGet("/api/db-check", async (CasaliaDbContext db) =>
+{
+    bool conectado = await db.Database.CanConnectAsync();
+    return Results.Ok(new { conectado });
+});
 
 app.Run();
