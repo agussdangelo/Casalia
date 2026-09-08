@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Casalia.Api/Casalia.Api.csproj" />
+  <Project Path="Casalia.Application/Casalia.Application.csproj" />
+  <Project Path="Casalia.Domain/Casalia.Domain.csproj" />
+  <Project Path="Casalia.Infrastructure/Casalia.Infrastructure.csproj" />
+</Solution>
