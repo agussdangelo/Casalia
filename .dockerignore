@@ -1,0 +1,16 @@
+.git
+.codex
+.agents
+**/node_modules
+**/dist
+**/bin
+**/obj
+**/.vs
+**/.env
+**/.env.*
+**/*.env
+**/appsettings.Development.json
+**/*.user
+**/*.log
+docs
+artifacts

@@ -1,52 +1,38 @@
 # Casalia
 
-## Requisitos previos
+React/Vite con escenas 3D, ASP.NET Core 10, SignalR y PostgreSQL.
 
-- [.NET SDK](https://dotnet.microsoft.com/download) 10 (LTS)
-- [Node.js](https://nodejs.org/) (18+) y npm
+## Railway
 
-## 1. Levantar el backend
+El Dockerfile de la raíz compila frontend y backend en un solo servicio web. PostgreSQL se crea como servicio separado. Seguí [la guía de Railway](docs/RAILWAY.md) para configurar el deploy.
 
-Desde la raíz del proyecto:
+## Desarrollo local
 
-\```powershell
-cd backend/MiniRoomApi
-dotnet restore
-dotnet run
-\```
+Requisitos: .NET SDK 10, Node.js 22, npm y Docker Desktop.
+Copiá `.env.example` a `.env` y elegí una contraseña local.
 
-Si todo salió bien, deberías ver algo como:
+```powershell
+docker compose up -d
+$env:ConnectionStrings__DefaultConnection = "Host=localhost;Port=5432;Database=casalia;Username=casalia;Password=TU_PASSWORD_LOCAL"
+dotnet run --project backend/Casalia.Api --launch-profile http
+```
 
-\```
-info: Microsoft.Hosting.Lifetime[14]
-      Now listening on: http://localhost:5000
-info: Microsoft.Hosting.Lifetime[0]
-      Application started. Press Ctrl+C to shut down.
-\```
+En otra terminal:
 
-Podés confirmar que está vivo abriendo [http://localhost:5000](http://localhost:5000) en el navegador — debería mostrar:
-
-> MiniRoomApi corriendo. Hub de chat en /hubs/room
-
-El hub de SignalR queda expuesto en `http://localhost:5000/hubs/room`.
-
-**Dejá esta terminal corriendo.**
-
-## 2. Levantar el frontend
-
-En una **terminal nueva**:
-
-\```powershell
+```powershell
 cd frontend
-npm install
-npm install @microsoft/signalr
+npm ci
 npm run dev
-\```
+```
 
-Vite va a levantar el front en:
+Abrí http://localhost:5173. Vite redirige `/api` y `/hubs` al backend en el puerto 5062, incluidos los WebSockets.
 
-\```
-➜  Local:   http://localhost:5173/
-\```
+## Probar el contenedor completo
 
-Abrí esa URL en el navegador.
+Con Docker Desktop activo y `.env` configurado:
+
+```powershell
+docker compose -f docker-compose.yml -f docker-compose.deploy.yml up --build -d
+```
+
+Abrí http://localhost:8080. `/health` verifica el servidor y `/api/db-check` comprueba PostgreSQL.

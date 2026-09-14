@@ -1,1 +1,1 @@
-export const HUB_URL = "http://localhost:5000/hubs/room";
+export const HUB_URL = "/hubs/room";
