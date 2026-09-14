@@ -3,7 +3,7 @@ name: Mirror Casalia to Railway Repository
 on:
   push:
     branches:
-      - master
+      - main
 
   workflow_dispatch:
 
@@ -24,4 +24,4 @@ jobs:
 
         run: |
           git remote add mirror https://x-access-token:${MIRROR_TOKEN}@github.com/agussdangelo/Casalia.git
-          git push --force mirror HEAD:master
+          git push --force mirror HEAD:main
