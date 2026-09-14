@@ -1,0 +1,27 @@
+name: Mirror Casalia to Railway Repository
+
+on:
+  push:
+    branches:
+      - master
+
+  workflow_dispatch:
+
+jobs:
+  mirror:
+    if: github.repository == 'Laraaa194/Casalia'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Push to agussdangelo/Casalia
+        env:
+          MIRROR_TOKEN: ${{ secrets.CASALIA_MIRROR_TOKEN }}
+
+        run: |
+          git remote add mirror https://x-access-token:${MIRROR_TOKEN}@github.com/agussdangelo/Casalia.git
+          git push --force mirror HEAD:master
