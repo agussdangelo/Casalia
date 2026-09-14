@@ -22,5 +22,8 @@ artifacts/
 Thumbs.db
 .env
 .env.local
+*.env
+.env.*
+!.env.example
 *.log
 appsettings.Development.json
