@@ -4,18 +4,21 @@ React/Vite con escenas 3D, ASP.NET Core 10, SignalR y PostgreSQL.
 
 ## Railway
 
-El Dockerfile de la raíz compila frontend y backend en un solo servicio web. PostgreSQL se crea como servicio separado. Seguí [la guía de Railway](docs/RAILWAY.md) para configurar el deploy.
+El Dockerfile de la raíz compila frontend y backend en un solo servicio web. PostgreSQL se crea como servicio separado. 
 
 ## Desarrollo local
 
 Requisitos: .NET SDK 10, Node.js 22, npm y Docker Desktop.
 Copiá `.env.example` a `.env` y elegí una contraseña local.
 
+- [.NET SDK](https://dotnet.microsoft.com/download) 10 (LTS)
+- [Node.js](https://nodejs.org/) (18+) y npm
+
 ```powershell
 docker compose up -d
 $env:ConnectionStrings__DefaultConnection = "Host=localhost;Port=5432;Database=casalia;Username=casalia;Password=TU_PASSWORD_LOCAL"
 dotnet run --project backend/Casalia.Api --launch-profile http
-```
+```st
 
 En otra terminal:
 
@@ -36,3 +39,7 @@ docker compose -f docker-compose.yml -f docker-compose.deploy.yml up --build -d
 ```
 
 Abrí http://localhost:8080. `/health` verifica el servidor y `/api/db-check` comprueba PostgreSQL.
+lhost:5173/
+\```
+
+Abrí esa URL en el navegador.
