@@ -1,4 +1,4 @@
-import "./Controls.css";
+import "./controls.css";
 
 export function Controls({ wallColor, onWallColorChange, transformMode, onTransformModeChange }) {
   return (
