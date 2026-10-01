@@ -12,5 +12,5 @@ public abstract class Superficie
     public long? AcabadoId { get; set; }
     public Acabado? Acabado { get; set; }
 
-    public ICollection<Abertura> Aperturas { get; set; } = new List<Abertura>();
+    public ICollection<Abertura> Aberturas { get; set; } = new List<Abertura>();
 }
