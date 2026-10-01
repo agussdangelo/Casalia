@@ -1,4 +1,4 @@
-using Casalia.Infrastructure;
+using Casalia.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.StaticFiles;
 using Npgsql;
