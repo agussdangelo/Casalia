@@ -1,3 +1,13 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #b5532f;
+  --color-brand-dark: #9a4426;
+  --color-surface: #f7f6f4;
+  --color-ink: #1f1a17;
+  --color-muted: #8a847e;
+}
+
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -18,7 +28,7 @@ body {
   overflow: hidden;       
 }
 
-/* El Canvas de Three.js necesita ocupar el espacio disponible, no su tamaño "natural" */
+
 .scene-area canvas {
   flex: 1;
 }

@@ -16,18 +16,18 @@ export function EditorScene() {
  const [userName] = useState(() => 'Usuario-' + Math.floor(Math.random() * 1000))
   const orbitControlsRef = useRef(null)
 
-  // Editor state (Zustand)
+ 
   const objects = useEditorStore((s) => s.objects)
   const updateObject = useEditorStore((s) => s.updateObject)
   const selectedId = useEditorStore((s) => s.selectedId)
   const select = useEditorStore((s) => s.select)
 
-  // Comments (SignalR): the hook is called ONCE, here
+  
   const connection = useSignalR()
   const { commentsByObject, sendPinnedComment } = usePinnedComments(connection)
 
   return (
-    <div className="scene-area">
+    <div className="scene-area relative flex-1 min-w-0">
       <Controls
         wallColor={wallColor}
         onWallColorChange={setWallColor}

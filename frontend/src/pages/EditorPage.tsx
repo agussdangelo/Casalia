@@ -1,12 +1,11 @@
 import { EditorScene } from '@/features/editor/scene/EditorScene'
-import { FurnitureList } from '@/features/catalogo'
-
+import { CatalogPanel } from '@/features/catalogo'
 
 export default function EditorPage() {
   return (
-     <div className="app-container">
+    <div className="app-container">
+      <CatalogPanel onAddFurniture={() => {}} />
       <EditorScene />
-      <FurnitureList onAddFurniture={() => {}} />
     </div>
   )
 }
