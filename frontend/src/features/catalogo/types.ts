@@ -1,6 +1,9 @@
+export type FurnitureCategory = 'sillones' | 'mesas' | 'luz' | 'deco'
+
 export interface Furniture {
   id: string
   name: string
-  category: string
+  category: FurnitureCategory
   thumbnail: string
+  url: string 
 }
