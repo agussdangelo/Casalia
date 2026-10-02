@@ -6,6 +6,7 @@ using Casalia.Application.Ports;
 using Casalia.Api.Authentication;
 using Casalia.Infrastructure.Persistence.Repositories;
 using Casalia.Application.UseCases.GuardarTransformaciones;
+using Casalia.Api.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,6 +57,8 @@ if (builder.Environment.IsDevelopment())
 }
 
 var app = builder.Build();
+
+app.UseMiddleware<ManejadorDeExcepcionesMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {
