@@ -1,10 +1,8 @@
 import { useMemo, useState } from 'react'
 import type { Furniture, FurnitureCategory } from '../types'
+import { filterFurniture, type FurnitureFilters } from '../utils/filterFurniture'
 
-export interface FurnitureFilters {
-  styles: string[]
-  colors: string[]
-}
+export type { FurnitureFilters }
 
 const EMPTY_FILTERS: FurnitureFilters = { styles: [], colors: [] }
 
@@ -24,16 +22,10 @@ export function useFurnitureFilter(furniture: Furniture[] = []) {
     [furniture],
   )
 
-  const filtered = useMemo(() => {
-    const text = search.trim().toLowerCase()
-    return furniture.filter(
-      (f) =>
-        (!category || f.category === category) &&
-        f.name.toLowerCase().includes(text) &&
-        (!filters.styles.length || (!!f.style && filters.styles.includes(f.style))) &&
-        (!filters.colors.length || (!!f.color && filters.colors.includes(f.color))),
-    )
-  }, [furniture, search, category, filters])
+  const filtered = useMemo(
+    () => filterFurniture(furniture, search, category, filters),
+    [furniture, search, category, filters],
+  )
 
   const activeFiltersCount = filters.styles.length + filters.colors.length
 
