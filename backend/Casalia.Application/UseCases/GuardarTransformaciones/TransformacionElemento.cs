@@ -1,6 +1,6 @@
 using System;
 
-namespace Casalia.Application.UseCases;
+namespace Casalia.Application.UseCases.GuardarTransformaciones;
 
 public record TransformacionElemento(
     long ElementoId,
