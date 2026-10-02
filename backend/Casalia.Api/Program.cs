@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.StaticFiles;
 using Npgsql;
 using Casalia.Application.Ports;
 using Casalia.Api.Authentication;
+using Casalia.Infrastructure.Persistence.Repositories;
+using Casalia.Application.UseCases.GuardarTransformaciones;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,6 +45,9 @@ if (string.IsNullOrWhiteSpace(connectionString) &&
     }.ConnectionString;
 }
 builder.Services.AddDbContext<CasaliaDbContext>(options => options.UseNpgsql(connectionString));
+
+builder.Services.AddScoped<IDisenoRepositorio, DisenoRepositorio>();
+builder.Services.AddScoped<GuardarTransformacionesUseCase>();
 
 // Usuario actual
 if (builder.Environment.IsDevelopment())
