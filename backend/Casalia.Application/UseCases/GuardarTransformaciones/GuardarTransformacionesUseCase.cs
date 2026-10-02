@@ -15,7 +15,7 @@ public class GuardarTransformacionesUseCase
     public async Task<GuardarTransformacionesResultado> EjecutarAsync(
         GuardarTransformacionesComando comando, CancellationToken ct)
     {
-        var diseno = await _disenos.ObtenerConElementosAsync(comando.DisenoId, ct);
+        var diseno = await _disenos.ObtenerDisenoConElementosAsync(comando.DisenoId, ct);
         if (diseno is null)
             throw new NoEncontradoException("El diseño no existe.");
 
