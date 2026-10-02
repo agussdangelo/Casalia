@@ -50,6 +50,7 @@ builder.Services.AddDbContext<CasaliaDbContext>(options => options.UseNpgsql(con
 builder.Services.AddScoped<IDisenoRepositorio, DisenoRepositorio>();
 builder.Services.AddScoped<GuardarTransformacionesUseCase>();
 
+builder.Services.AddControllers();
 // Usuario actual
 if (builder.Environment.IsDevelopment())
 {
@@ -83,7 +84,7 @@ app.MapGet("/api/db-check", async (CasaliaDbContext db) =>
     bool conectado = await db.Database.CanConnectAsync();
     return Results.Ok(new { conectado });
 });
-
+app.MapControllers();
 app.MapFallbackToFile("index.html");
 
 app.Run();
