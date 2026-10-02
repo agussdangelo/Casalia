@@ -2,6 +2,8 @@ using Casalia.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.StaticFiles;
 using Npgsql;
+using Casalia.Application.Ports;
+using Casalia.Api.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +43,12 @@ if (string.IsNullOrWhiteSpace(connectionString) &&
     }.ConnectionString;
 }
 builder.Services.AddDbContext<CasaliaDbContext>(options => options.UseNpgsql(connectionString));
+
+// Usuario actual
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddScoped<IUsuarioActual, UsuarioFalso>();
+}
 
 var app = builder.Build();
 
