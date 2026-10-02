@@ -1,4 +1,4 @@
-import { furnitureCatalog } from '../MockFurniture'
+import { furnitureCatalog } from '../mocks/MockFurniture'
 import type { Furniture } from '../types'
 
 export async function fetchFurniture(): Promise<Furniture[]> {
