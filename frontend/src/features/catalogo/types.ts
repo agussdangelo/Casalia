@@ -5,5 +5,7 @@ export interface Furniture {
   name: string
   category: FurnitureCategory
   thumbnail: string
-  url: string 
+  url: string
+  style?: string
+  color?: string
 }

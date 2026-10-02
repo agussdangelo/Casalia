@@ -9,6 +9,7 @@
 **/.env
 **/.env.*
 **/*.env
+!frontend/.env.production
 **/appsettings.Development.json
 **/*.user
 **/*.log
