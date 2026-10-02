@@ -13,11 +13,10 @@ function CatalogTabs() {
           key={id}
           type="button"
           disabled={!enabled}
-          className={`-mb-px border-b-2 pb-2 text-xs transition ${
-            enabled
-              ? 'border-brand font-medium text-ink'
+          className={`-mb-px border-b-2 pb-2 text-xs transition ${enabled
+              ? 'border-brand font-semibold text-ink'
               : 'cursor-not-allowed border-transparent text-muted/60'
-          }`}
+            }`}
         >
           {label}
         </button>
