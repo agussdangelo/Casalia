@@ -22,7 +22,7 @@ export type Product = {
   name: string;
   maker: string;
   price: number;
-  image: ImageRegion;
+  image: ImageRegion | string;
 };
 
 export const roomPreview: ImageRegion = { source: "home", x: 585, y: 92, width: 261, height: 224 };
@@ -46,7 +46,7 @@ export const favoriteProducts: Product[] = [
   { id: "shelf", name: "Biblioteca Modular", maker: "Colección Modular", price: 356900, image: { source: "products", x: 818, y: 519, width: 37, height: 31 } },
 ];
 
-export const formatPrice = (price: number) => `$ ${new Intl.NumberFormat("es-AR").format(price)}`;
+export { formatPrice } from "../shared/utils/formatPrice";
 
 export function formatCreatedDate(date: string) {
   const calendarDate = /^\d{4}-\d{2}-\d{2}$/.test(date) ? `${date}T12:00:00Z` : date;

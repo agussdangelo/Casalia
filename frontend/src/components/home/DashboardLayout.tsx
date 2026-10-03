@@ -1,20 +1,22 @@
 import type { ReactNode } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Dialog } from "./Dialog";
 import { NewDesignDialog } from "./NewDesignDialog";
 import { ProductCard } from "./ProductCard";
 import { Brand, Icon, ReferenceImage } from "./Visuals";
 import { formatPrice } from "../../data/home";
+import { MarketplaceSearch } from "../../features/marketplace";
 import { useHome, type Navigation } from "./useHome";
 
 export function DashboardLayout({ children }: { children: ReactNode }) {
   const {
     userName, userInitials, modal, setModal, mobileMenuOpen, setMobileMenuOpen,
     notification, setNotification, cart, setCart, cartCount, cartTotal,
-    favorites, designs, marketplaceSearch, setMarketplaceSearch, allProducts,
-    changeQuantity, openNewDesign, toggleFavorite,
+    favorites, designs, marketplaceSearch, setMarketplaceSearch,
+    changeQuantity, openNewDesign,
     activeNavigation, closeModal, resetNavigation, openEditor, navigate, createDesign,
   } = useHome();
+  const inMarketplace = useLocation().pathname === "/marketplace";
 
   return <>
     <a className="skip-link" href="#main-content" onClick={(event) => { event.preventDefault(); document.getElementById("main-content")?.focus(); }}>Ir al contenido</a>
@@ -34,13 +36,14 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
 
       <div className="dashboard-main">
         <header className="topbar flex items-center justify-between">
-          <div className="mobile-brand flex items-center gap-3">
+          <div className={`mobile-brand flex items-center gap-3 ${inMarketplace ? "min-[781px]:hidden" : ""}`}>
             <button className="icon-button" aria-label="Abrir menú" aria-expanded={mobileMenuOpen} onClick={() => setMobileMenuOpen(true)}>
               <Icon name="menu" />
             </button>
             <Brand />
           </div>
-          
+          {inMarketplace && <MarketplaceSearch value={marketplaceSearch} onChange={setMarketplaceSearch} className="mr-4 max-w-[390px] max-[780px]:hidden" />}
+
           <button className="cart-button" onClick={() => setModal("cart")} aria-label={`Abrir carrito, ${cartCount} productos`}>
             <Icon name="cart" />
             <span className="cart-count">{cartCount}</span>
@@ -137,25 +140,8 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
                               <span>Total</span>
                               <strong>{formatPrice(cartTotal)}</strong>
                             </div> : <p className="dialog-description">Tu carrito está vacío. Encontrá algo que te encante en el marketplace.</p>}
-                            <button className="button button-primary w-full" onClick={() => setModal("marketplace")}>Seguir explorando</button>
+                            <button className="button button-primary w-full" onClick={() => navigate("Marketplace")}>Seguir explorando</button>
                           </Dialog>
-    }
-
-    {
-    modal === "marketplace" && <Dialog title="Encontrá eso que le falta a tu espacio" onClose={closeModal}>
-                                  <p className="dialog-description">Muebles y objetos elegidos para vos.</p>
-                                  <input className="marketplace-search" aria-label="Buscar productos" placeholder="Buscar un producto o creador…" value={marketplaceSearch} onChange={(event) => setMarketplaceSearch(event.target.value)} />
-                                  <div className="marketplace-grid">{allProducts.filter((product) => `${product.name} ${product.maker}`.toLocaleLowerCase("es").includes(marketplaceSearch.toLocaleLowerCase("es"))).map((product) => 
-                                    <div className="marketplace-product" key={product.id}><ProductCard product={product} />
-                                      <button className="marketplace-favorite flex items-center gap-2" onClick={() => toggleFavorite(product)} aria-pressed={favorites.some((item) => item.id === product.id)}>
-                                        <Icon name="heart" filled={favorites.some((item) => item.id === product.id)} />{favorites.some((item) => item.id === product.id) ? "En tus favoritos" : "Guardar favorito"}
-                                      </button>
-                                    </div>)}
-                                  </div>
-                                  
-                                  {!allProducts.some((product) => `${product.name} ${product.maker}`.toLocaleLowerCase("es").includes(marketplaceSearch.toLocaleLowerCase("es"))) && 
-                                  <p className="dialog-description">No encontramos productos con esa búsqueda.</p>}
-                                </Dialog>
     }
 
     {

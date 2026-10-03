@@ -1,6 +1,7 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 import EditorPage from '@/pages/EditorPage'
 import InicioPage from '@/pages/InicioPage'
+import MarketplacePage from '@/pages/MarketplacePage'
 import MisDiseñosPage from '@/pages/MisDiseñosPage'
 
 export const router = createBrowserRouter([
@@ -8,4 +9,5 @@ export const router = createBrowserRouter([
   { path: '/editor', element: <EditorPage /> },
   { path: '/inicio', element: <InicioPage /> },
   { path: '/misdiseños', element: <MisDiseñosPage /> },
+  { path: '/marketplace', element: <MarketplacePage /> },
 ])

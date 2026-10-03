@@ -6,6 +6,11 @@
   --color-surface: #f7f6f4;
   --color-ink: #1f1a17;
   --color-muted: #8a847e;
+  --color-clay: #ac4d29;
+  --color-cream: #fbf8f4;
+  --color-sand: #f3ebe4;
+  --color-sage: #397859;
+  --color-line: #e8e4df;
 }
 
 body {
@@ -31,4 +36,33 @@ body {
 
 .scene-area canvas {
   flex: 1;
+}
+/* Filtro de precio del marketplace: dos sliders superpuestos; solo los pulgares reciben el puntero. */
+.price-range-input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  margin: 0;
+  appearance: none;
+  background: transparent;
+  pointer-events: none;
+}
+.price-range-input::-webkit-slider-thumb {
+  width: 16px;
+  height: 16px;
+  appearance: none;
+  border: 2px solid var(--color-clay);
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+  pointer-events: auto;
+}
+.price-range-input::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--color-clay);
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+  pointer-events: auto;
 }

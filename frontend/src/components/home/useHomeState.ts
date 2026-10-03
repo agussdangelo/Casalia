@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { budgetProducts, favoriteProducts, initialDesigns, roomPreview, type Design, type Product } from "../../data/home";
 
-type Modal = "new-design" | "cart" | "marketplace" | "messages" | "profile" | "plan" | "favorites" | null;
+type Modal = "new-design" | "cart" | "messages" | "profile" | "plan" | "favorites" | null;
 type CartItem = { product: Product; quantity: number };
 
 const startingCart: CartItem[] = [...budgetProducts, favoriteProducts[0]].map((product) => ({ product, quantity: 1 }));
@@ -26,11 +26,17 @@ function readDesigns(): Design[] {
   return initialDesigns;
 }
 
+function savedProduct(value: unknown): Product | undefined {
+  if (!value || typeof value !== "object") return undefined;
+  const { id, name, maker, price, image } = value as Record<string, unknown>;
+  return typeof id === "string" && typeof name === "string" && typeof maker === "string" && typeof price === "number" && typeof image === "string" ? { id, name, maker, price, image } : undefined;
+}
+
 function readCart(): CartItem[] {
   try {
     const value: unknown = JSON.parse(localStorage.getItem("casalia-cart") ?? "null");
-    if (Array.isArray(value)) return value.flatMap((item: { id?: string; quantity?: number }) => {
-      const product = allProducts.find((candidate) => candidate.id === item?.id);
+    if (Array.isArray(value)) return value.flatMap((item: { id?: string; quantity?: number; product?: unknown }) => {
+      const product = allProducts.find((candidate) => candidate.id === item?.id) ?? savedProduct(item?.product);
       return product && Number.isInteger(item.quantity) && item.quantity! > 0 && item.quantity! <= 99 ? [{ product, quantity: item.quantity! }] : [];
     });
   } catch { /* El carrito predeterminado permanece disponible si el almacenamiento no está disponible. */ }
@@ -63,7 +69,7 @@ export function useHomeState(currentUser: { name: string } | null = null) {
   useEffect(() => () => clearTimeout(notificationTimer.current), []);
 
   useEffect(() => {
-    try { localStorage.setItem("casalia-cart", JSON.stringify(cart.map(({ product, quantity }) => ({ id: product.id, quantity })))); } catch { /* Cart remains usable without storage. */ }
+    try { localStorage.setItem("casalia-cart", JSON.stringify(cart.map(({ product, quantity }) => ({ id: product.id, quantity, ...(typeof product.image === "string" && { product }) })))); } catch { /* Cart remains usable without storage. */ }
   }, [cart]);
 
   // 1. Guardar en localStorage
