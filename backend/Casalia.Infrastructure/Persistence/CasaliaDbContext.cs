@@ -18,7 +18,8 @@ public class CasaliaDbContext : DbContext
     public DbSet<Abertura> Aberturas => Set<Abertura>();
     public DbSet<ElementoEnDiseno> ElementosEnDiseno => Set<ElementoEnDiseno>();
     public DbSet<Modelo3D> Modelos3D => Set<Modelo3D>();
-
+    public DbSet<Propiedad> Propiedades => Set<Propiedad>();
+    public DbSet<Categoria> Categorias => Set<Categoria>();
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // Registra automáticamente todas las clases de configuración
