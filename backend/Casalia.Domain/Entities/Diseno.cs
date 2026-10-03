@@ -16,4 +16,7 @@ public class Diseno
 
     public ICollection<Ambiente> Ambientes { get; set; } = new List<Ambiente>();
     public ICollection<ElementoEnDiseno> Elementos { get; set; } = new List<ElementoEnDiseno>();
+
+    public void MarcarComoModificado() => FechaModificacion = DateTime.UtcNow;
+
 }

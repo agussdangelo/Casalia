@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.StaticFiles;
 using Npgsql;
 using Casalia.Application.Ports;
 using Casalia.Api.Authentication;
+using Casalia.Infrastructure.Persistence.Repositories;
+using Casalia.Application.UseCases.GuardarTransformaciones;
+using Casalia.Api.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,6 +47,10 @@ if (string.IsNullOrWhiteSpace(connectionString) &&
 }
 builder.Services.AddDbContext<CasaliaDbContext>(options => options.UseNpgsql(connectionString));
 
+builder.Services.AddScoped<IDisenoRepositorio, DisenoRepositorio>();
+builder.Services.AddScoped<GuardarTransformacionesUseCase>();
+
+builder.Services.AddControllers();
 // Usuario actual
 if (builder.Environment.IsDevelopment())
 {
@@ -51,6 +58,8 @@ if (builder.Environment.IsDevelopment())
 }
 
 var app = builder.Build();
+
+app.UseMiddleware<ManejadorDeExcepcionesMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {
@@ -75,7 +84,7 @@ app.MapGet("/api/db-check", async (CasaliaDbContext db) =>
     bool conectado = await db.Database.CanConnectAsync();
     return Results.Ok(new { conectado });
 });
-
+app.MapControllers();
 app.MapFallbackToFile("index.html");
 
 app.Run();

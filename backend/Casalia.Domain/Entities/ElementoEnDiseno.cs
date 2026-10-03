@@ -1,4 +1,5 @@
 using System;
+using Casalia.Domain.Enums;
 
 namespace Casalia.Domain.Entities;
 
@@ -16,4 +17,21 @@ public class ElementoEnDiseno
 
     public long ModeloId { get; set; }
     public Modelo3D Modelo { get; set; } = null!;
+
+public void Transformar(double x, double y, double z, double rotacion, double escala)
+{
+    if (escala <= 0)
+        throw new ArgumentException("La escala debe ser mayor a 0.", nameof(escala));
+
+    bool escalaCambio = Math.Abs(escala - Escala) > 0.0001;
+    if (Modelo.Origen != OrigenModelo3D.Generico && escalaCambio)
+        throw new InvalidOperationException("Solo los modelos genéricos pueden cambiar de escala.");
+
+    PosicionX = x;
+    PosicionY = y;
+    PosicionZ = z;
+    Rotacion = ((rotacion % 360) + 360) % 360;
+    Escala = escala;
+}
+
 }

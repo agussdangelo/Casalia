@@ -1,0 +1,3 @@
+namespace Casalia.Application.UseCases.GuardarTransformaciones;
+
+public record GuardarTransformacionesResultado(DateTime FechaModificacion);
