@@ -10,7 +10,15 @@ public class Modelo3DConfiguration : IEntityTypeConfiguration<Modelo3D>
     {
         builder.HasKey(m => m.Id);
 
+        builder.Property(m => m.Nombre)
+            .IsRequired()
+            .HasMaxLength(100);
+
         builder.Property(m => m.Url)
+            .IsRequired()
+            .HasMaxLength(500);
+
+        builder.Property(m => m.MiniaturaUrl)
             .IsRequired()
             .HasMaxLength(500);
 
@@ -24,5 +32,13 @@ public class Modelo3DConfiguration : IEntityTypeConfiguration<Modelo3D>
             .WithMany()
             .HasForeignKey(m => m.CreadorId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        // Relación N:N con Categoria
+        builder.HasMany(m => m.Categorias)
+            .WithMany()
+            .UsingEntity<Dictionary<string, object>>(
+                "Modelo3DCategoria",
+                r => r.HasOne<Categoria>().WithMany().HasForeignKey("CategoriaId"),
+                l => l.HasOne<Modelo3D>().WithMany().HasForeignKey("Modelo3DId"));
     }
 }
