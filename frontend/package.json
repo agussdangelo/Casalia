@@ -4,21 +4,12 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-<<<<<<< HEAD
-    "dev": "vite",
-    "build": "tsc --noEmit && vite build",
-    "typecheck": "tsc --noEmit",
-    "preview": "vite preview",
-    "lint": "eslint src"
-  },
-=======
   "dev": "vite",
   "build": "vite build",
   "preview": "vite preview",
   "lint": "eslint src",
   "test": "vitest --passWithNoTests"
 },
->>>>>>> origin/main
   "dependencies": {
     "@fontsource/dm-sans": "^5.3.0",
     "@microsoft/signalr": "^8.0.29",
@@ -39,21 +30,15 @@
     "@vitejs/plugin-react": "^4.2.0",
     "autoprefixer": "^10.6.1",
     "postcss": "^8.5.28",
-    "typescript": "^5.6.3",
-    "vite": "^5.1.0",
     "@eslint/js": "^10.0.1",
     "@types/three": "^0.186.0",
     "eslint": "^10.11.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.7",
     "globals": "^17.12.0",
-<<<<<<< HEAD
-    "typescript-eslint": "^8.70.1"
-=======
     "typescript": "^5.6.3",
     "typescript-eslint": "^8.70.1",
     "vite": "^5.1.0",
     "vitest": "^3.2.7"
->>>>>>> origin/main
   }
 }

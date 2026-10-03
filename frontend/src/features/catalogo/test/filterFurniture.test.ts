@@ -1,5 +1,3 @@
-
-
 import { describe, expect, it } from 'vitest'
 import { furnitureCatalog } from '../mocks/MockFurniture'
 import { filterFurniture } from '../utils/filterFurniture'
