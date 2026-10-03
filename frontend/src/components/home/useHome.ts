@@ -14,8 +14,8 @@ export function useHome() {
   if (!context) throw new Error("useHome debe usarse dentro de HomeProvider");
   const state = context;
 
-  const activeNavigation: Navigation = state.modal === "marketplace" ? "Marketplace"
-    : state.modal === "messages" ? "Mensajes"
+  const activeNavigation: Navigation = state.modal === "messages" ? "Mensajes"
+    : pathname === "/marketplace" ? "Marketplace"
     : decodeURI(pathname) === "/misdiseños" ? "Mis diseños" : "Inicio";
 
   function closeModal() {
@@ -39,12 +39,12 @@ export function useHome() {
 
   function navigate(destination: Navigation) {
     state.setMobileMenuOpen(false);
-    if (destination === "Inicio" || destination === "Mis diseños") {
-      resetNavigation();
-      navigateTo(destination === "Inicio" ? "/inicio" : "/misdiseños");
+    if (destination === "Mensajes") {
+      state.setModal("messages");
+      return;
     }
-    if (destination === "Marketplace") state.setModal("marketplace");
-    if (destination === "Mensajes") state.setModal("messages");
+    resetNavigation();
+    navigateTo(destination === "Inicio" ? "/inicio" : destination === "Mis diseños" ? "/misdiseños" : "/marketplace");
   }
 
   function createDesign(name: string, budget: number) {
