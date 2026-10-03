@@ -17,9 +17,8 @@ import "./Editor.css";
 export default function Editor() {
   const [wallColor, setWallColor] = useState("#d8c9a3");
   const [transformMode, setTransformMode] = useState("translate");
-  const [userName] = useState("Usuario-" + Math.floor(Math.random() * 1000));
+  const [userName] = useState(() => "Usuario-" + Math.floor(Math.random() * 1000));
   const [selectedObject, setSelectedObject] = useState(null);
-
 
 const [objectTransforms, setObjectTransforms] = useState([
     { instanceId: "sofa-1", id: "sofa", position: [-2, 0, -0.8], rotation: [0, Math.PI / 2, 0] },

@@ -92,16 +92,21 @@ export default function App({ currentUser = null }: AppProps) {
     try { localStorage.setItem("casalia-cart", JSON.stringify(cart.map(({ product, quantity }) => ({ id: product.id, quantity })))); } catch { /* Cart remains usable without storage. */ }
   }, [cart]);
 
+  // 1. Guardar en localStorage
   useEffect(() => {
     try {
-      localStorage.setItem("casalia-designs", JSON.stringify(designs.filter((design) => design.id.startsWith("design-")).map(({ id, name, budget, createdAt }) => ({ id, name, budget, createdAt }))));
-    } catch { /* Los diseños se siguen usando sin necesidad de almacenamiento. */}
-    if (page === "editor") {
-      const id = window.location.hash.split("/")[2];
-      const design = designs.find((candidate) => candidate.id === id);
-      if (design) setEditorDesign(design);
+      localStorage.setItem(
+        "casalia-designs",
+        JSON.stringify(
+          designs
+            .filter((design) => design.id.startsWith("design-"))
+            .map(({ id, name, budget, createdAt }) => ({ id, name, budget, createdAt }))
+        )
+      );
+    } catch {
+      /* Los diseños se siguen usando sin necesidad de almacenamiento. */
     }
-  }, [designs, page]);
+  }, [designs]);
 
   const cartCount = cart.reduce((count, item) => count + item.quantity, 0);
   const cartTotal = cart.reduce((total, item) => total + item.product.price * item.quantity, 0);
